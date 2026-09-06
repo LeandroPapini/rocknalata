@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock na Lata | Uma Experiência Rock & Cia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. VARIÁVEIS CSS E DESIGN SYSTEM
+           ========================================================================== */
+        :root {
+            --bg-deep: #08080a;
+            --bg-surface: #121216;
+            --bg-elevated: #1a1a20;
+            
+            --rock-red: #e50914;
+            --rock-red-glow: rgba(229, 9, 20, 0.35);
+            
+            --kraft-gold: #c89658;
+            --kraft-dark: #8c5d2b;
+            --kraft-gradient: linear-gradient(135deg, #dfb279 0%, #c89658 50%, #99672e 100%);
+            
+            --silver-primary: #e0e0e0;
+            --silver-muted: #888892;
+            --silver-gradient: linear-gradient(135deg, #ffffff 0%, #b0b0b8 50%, #6e6e76 100%);
+            
+            --text-pure: #ffffff;
+            --text-body: #c4c4cc;
+            
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(200, 150, 88, 0.35);
+
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ==========================================================================
+           2. RESET & SETUP GERAL
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-body);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 1.5px;
+            color: var(--text-pure);
+            text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .badge-collector {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(229, 9, 20, 0.12);
+            border: 1px solid var(--rock-red);
+            color: var(--rock-red);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .badge-collector::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--rock-red);
+            box-shadow: 0 0 10px var(--rock-red);
+        }
+
+        /* ==========================================================================
+           3. CABEÇALHO & NAVBAR
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(8, 8, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: var(--transition);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            line-height: 0.9;
+            background: var(--silver-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--kraft-gold);
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--silver-muted);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--rock-red);
+        }
+
+        .btn-nav {
+            background: var(--rock-red);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px var(--rock-red-glow);
+            transition: var(--transition);
+        }
+
+        .btn-nav:hover {
+            background: #ff1f2d;
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION (IMPACTO VISUAL)
+           ========================================================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+            background: radial-gradient(circle at 75% 30%, rgba(229, 9, 20, 0.12) 0%, transparent 60%),
+                        radial-gradient(circle at 25% 70%, rgba(200, 150, 88, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            line-height: 0.92;
+            margin: 1.5rem 0;
+        }
+
+        .hero-content h1 span.highlight-red {
+            color: var(--rock-red);
+            text-shadow: 0 0 25px var(--rock-red-glow);
+        }
+
+        .hero-content h1 span.highlight-kraft {
+            background: var(--kraft-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-body);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            max-width: 540px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--kraft-gradient);
+            color: #121212;
+            font-weight: 800;
+            padding: 1rem 2.2rem;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(200, 150, 88, 0.25);
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(200, 150, 88, 0.4);
+        }
+
+        .btn-outline {
+            color: var(--silver-primary);
+            border: 1px solid var(--silver-muted);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--silver-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Mockup Conceitual da Lata em CSS Puro */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .can-mockup {
+            width: 280px;
+            height: 440px;
+            background: linear-gradient(135deg, #a4763c 0%, #c89658 35%, #7a5024 100%);
+            border-radius: 40px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8),
+                        inset 0 0 30px rgba(0,0,0,0.5),
+                        0 0 40px var(--rock-red-glow);
+            border-top: 10px solid #d4d4dc;
+            border-bottom: 12px solid #8e8e96;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+            transform: rotate(-3deg);
+            transition: var(--transition);
+        }
+
+        .can-mockup:hover {
+            transform: rotate(0deg) scale(1.03);
+        }
+
+        .can-texture-lines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(0, 0, 0, 0.05),
+                rgba(0, 0, 0, 0.05) 2px,
+                transparent 2px,
+                transparent 8px
+            );
+            pointer-events: none;
+        }
+
+        .can-label {
+            background: #08080a;
+            width: 110%;
+            padding: 1.5rem 1rem;
+            transform: rotate(3deg);
+            border-top: 2px solid var(--rock-red);
+            border-bottom: 2px solid var(--silver-primary);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+
+        .can-label-title {
+            font-size: 2.4rem;
+            color: #fff;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .can-label-desc {
+            font-size: 0.65rem;
+            color: var(--kraft-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        /* ==========================================================================
+           5. SEÇÃO CATEGORIAS / PILARES
+           ========================================================================== */
+        .section-padding {
+            padding: 7rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4.5rem auto;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+            margin-top: 0.5rem;
+            line-height: 1;
+        }
+
+        .section-header p {
+            color: var(--silver-muted);
+            font-size: 1.05rem;
+            margin-top: 1rem;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .pillar-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2.2rem;
+            position: relative;
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .pillar-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-active);
+            background: var(--bg-elevated);
+        }
+
+        .pillar-card.card-kraft:hover::before { background: var(--kraft-gradient); }
+        .pillar-card.card-red:hover::before { background: var(--rock-red); }
+        .pillar-card.card-silver:hover::before { background: var(--silver-gradient); }
+
+        .pillar-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .pillar-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card p {
+            color: var(--silver-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ==========================================================================
+           6. SEÇÃO MANIFESTO / O ROCK & A ATITUDE
+           ========================================================================== */
+        .manifesto {
+            background: linear-gradient(180deg, var(--bg-deep) 0%, #151012 50%, var(--bg-deep) 100%);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
+        }
+
+        .manifesto-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .manifesto-box {
+            background: rgba(18, 18, 22, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--rock-red);
+        }
+
+        .manifesto-box blockquote {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            color: var(--text-pure);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .manifesto-box p {
+            font-size: 1rem;
+            color: var(--silver-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================================================
+           7. FORMULÁRIO DE CAPTURA LISTA VIP
+           ========================================================================== */
+        .vip-capture {
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(200, 150, 88, 0.1) 0%, transparent 70%);
+        }
+
+        .vip-card {
+            background: linear-gradient(145deg, #16161c 0%, #0e0e12 100%);
+            border: 1px solid var(--border-active);
+            border-radius: var(--radius-lg);
+            padding: 4rem 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .vip-card h2 {
+            font-size: 3.2rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .vip-card p {
+            color: var(--silver-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        .form-row input {
+            flex: 1;
+            background: #08080a;
+            border: 1px solid var(--border-subtle);
+            padding: 1.1rem 1.4rem;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-row input:focus {
+            border-color: var(--kraft-gold);
+            box-shadow: 0 0 15px rgba(200, 150, 88, 0.2);
+        }
+
+        .form-row button {
+            background: var(--rock-red);
+            color: #fff;
+            border: none;
+            padding: 1.1rem 2rem;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--rock-red-glow);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .form-row button:hover {
+            background: #ff1f2d;
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           8. RODAPÉ & CRÉDITOS
+           ========================================================================== */
+        footer {
+            background-color: #050507;
+            border-top: 1px solid var(--border-subtle);
+            padding: 5rem 0 2rem 0;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand h4 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand p.slogan-principal {
+            color: var(--kraft-gold);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .footer-brand p.slogan-legado {
+            color: var(--silver-muted);
+            font-size: 0.95rem;
+            max-width: 420px;
+            line-height: 1.6;
+        }
+
+        .footer-column h5 {
+            font-size: 1.2rem;
+            color: var(--silver-primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-column a {
+            color: var(--silver-muted);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--rock-red);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #555560;
+        }
+
+        .footer-bottom a {
+            color: var(--kraft-gold);
+            font-weight: 700;
+        }
+
+        /* Modal de Confirmação */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--kraft-gold);
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            max-width: 480px;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        /* ==========================================================================
+           9. RESPONSIVIDADE
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            .hero-content h1 {
+                margin: 1.5rem auto;
+            }
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+            .manifesto-inner {
+                grid-template-columns: 1fr;
+            }
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--bg-deep);
+                flex-direction: column;
+                padding: 2rem;
+                border-bottom: 1px solid var(--border-subtle);
+                gap: 1.5rem;
+                text-align: center;
+            }
+            .nav-links.mobile-open {
+                display: flex;
+            }
+            .btn-nav {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .form-row {
+                flex-direction: column;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <span class="logo-main">ROCK NA LATA</span>
+                <span class="logo-sub">By Rock & Cia</span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#experiencia">A Experiência</a></li>
+                <li><a href="#camiseta">A Camiseta</a></li>
+                <li><a href="#rock">O Rock</a></li>
+                <li><a href="#colecionador">Colecionador</a></li>
+            </ul>
+
+            <a href="#vip" class="btn-nav">Lista VIP</a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <span class="badge-collector">Lançamento Exclusivo</span>
+                    
+                    <h1>
+                        Rock que se veste,<br>
+                        <span class="highlight-red">Energia</span> que se <span class="highlight-kraft">Sente.</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        Muito mais do que vestuário. Uma união visceral entre a identidade clássica do Rock'n'Roll e uma experiência sensorial dentro de uma lata kraft industrial de colecionador. Criado orgulhosamente pela <strong>Rock & Cia</strong>.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#vip" class="btn-primary">Garantir Acesso VIP</a>
+                        <a href="#experiencia" class="btn-outline">Ver Conceito</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="can-mockup">
+                        <div class="can-texture-lines"></div>
+                        <div class="can-label">
+                            <h3 class="can-label-title">ROCK</h3>
+                            <p class="can-label-desc">Na Lata • Edição 01</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding" id="experiencia">
+            <div class="container">
+                <div class="section-header">
+                    <span class="badge-collector">Conceito & Identidade</span>
+                    <h2>A Trindade da Nossa Criação</h2>
+                    <p>O que acontece quando unimos o peso sonoro de guitarras distorcidas à elegância rústica do kraft?</p>
+                </div>
+
+                <div class="pillars-grid">
+                    <article class="pillar-card card-kraft">
+                        <span class="pillar-icon">🥫</span>
+                        <h3>A Experiência na Lata</h3>
+                        <p>
+                            O ritual do *unboxing* elevado à máxima potência. A lata tubular em papel kraft não é apenas uma embalagem descartável: é um item decorativo sustentável, industrial e atemporal projetado para compor seu quarto, estúdio ou estante.
+                        </p>
+                    </article>
+
+                    <article class="pillar-card card-red" id="camiseta">
+                        <span class="pillar-icon">⚡</span>
+                        <h3>A Camiseta Definitiva</h3>
+                        <p>
+                            Malha 100% algodão de alta gramatura, toque aveludado e caimento streetwear impecável. Estampas pensadas nos mínimos detalhes para durar anos nas estradas e festivais sem perder a vivacidade e o conforto.
+                        </p>
+                    </article>
+
+                    <article class="pillar-card card-silver" id="rock">
+                        <span class="pillar-icon">🎸</span>
+                        <h3>A Alma do Rock</h3>
+                        <p>
+                            O Rock não é uma tendência passageira; é uma filosofia de autenticidade, rebeldia e energia contagiante. Carregamos acordes em forma de estampa para quem não tem medo de se posicionar.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding manifesto" id="colecionador">
+            <div class="container manifesto-inner">
+                <div>
+                    <span class="badge-collector">Item de Colecionador</span>
+                    <h2 style="font-size: 3.5rem; margin-top: 1rem; line-height: 1;">
+                        Feito para quem não aceita o comum.
+                    </h2>
+                    <p style="color: var(--silver-muted); margin-top: 1.5rem; font-size: 1.1rem;">
+                        Cada lote do <strong>Rock na Lata</strong> traz tiragens limitadas e selo de autenticidade. Você não está apenas adquirindo uma camiseta, mas colecionando uma fração da história e da curadoria visual desenvolvida pela <strong>Rock & Cia</strong>.
+                    </p>
+                </div>
+
+                <div class="manifesto-box">
+                    <blockquote>
+                        "O rock nunca vestiu tão bem. Dentro da lata."
+                    </blockquote>
+                    <p>
+                        Atemporal, moderno e transbordando personalidade. Uma peça concebida para atravessar gerações mantendo o mesmo espírito contestador.
+                    </p>
+                    <div style="font-size: 0.8rem; letter-spacing: 2px; color: var(--kraft-gold); font-weight: 800; text-transform: uppercase;">
+                        — Selo de Originalidade Rock & Cia
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding vip-capture" id="vip">
+            <div class="container">
+                <div class="vip-card">
+                    <span class="badge-collector">Lote Zero • Pré-Lançamento</span>
+                    <h2>Seja o Primeiro a Abrir a Sua Lata</h2>
+                    <p>Cadastre seu e-mail para ter prioridade no Lote #01 e receber uma condição especial de lançamento.</p>
+
+                    <form class="form-row" id="vipForm">
+                        <input type="email" id="emailInput" placeholder="Digite seu melhor e-mail" required>
+                        <button type="submit">Entrar na Lista VIP</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h4>ROCK NA LATA</h4>
+                    <p class="slogan-principal">"Rock que se veste, energia que se sente."</p>
+                    <p class="slogan-legado">
+                        O rock nunca vestiu tão bem. Dentro da lata. Uma proposta vanguardista unindo sustentabilidade, estilo e a verdadeira energia do rock.
+                    </p>
+                </div>
+
+                <div class="footer-column">
+                    <h5>Navegação</h5>
+                    <ul>
+                        <li><a href="#experiencia">A Experiência</a></li>
+                        <li><a href="#camiseta">A Camiseta</a></li>
+                        <li><a href="#rock">O Rock</a></li>
+                        <li><a href="#colecionador">Item de Colecionador</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h5>Origem</h5>
+                    <ul>
+                        <li><span style="color: var(--silver-muted);">Criado por:</span></li>
+                        <li><strong style="color: #fff; font-size: 1.1rem;">Rock & Cia</strong></li>
+                        <li><span style="color: var(--silver-muted);">São Paulo • Brasil</span></li>
+                        <li><span style="color: var(--silver-muted);">rocknalata.com.br</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Rock na Lata. Todos os direitos reservados.</p>
+                <p>Desenvolvido com excelência técnica para <a href="#">Rock & Cia</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-card">
+            <h3 style="font-size: 2.2rem; color: var(--kraft-gold); margin-bottom: 0.5rem;">VOCÊ ESTÁ NA LISTA!</h3>
+            <p style="color: var(--text-body); margin-bottom: 2rem;">
+                Seu e-mail foi registrado com sucesso. Em breve você receberá os detalhes em primeira mão sobre a abertura do Lote #01.
+            </p>
+            <button class="btn-primary" id="closeModal">Entendido</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Menu Mobile Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-open');
+        });
+
+        // Fechar menu mobile ao clicar em um link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('mobile-open');
+            });
+        });
+
+        // 2. Interação com o Formulário VIP
+        const vipForm = document.getElementById('vipForm');
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+        const emailInput = document.getElementById('emailInput');
+
+        vipForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = emailInput.value.trim();
+
+            if (email) {
+                // Abre o modal de sucesso
+                modal.classList.add('active');
+                vipForm.reset();
+            }
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Fechar modal ao clicar fora dele
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // 3. Efeito suave no Header ao scrollar
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(8, 8, 10, 0.95)';
+                header.style.borderBottomColor = 'rgba(200, 150, 88, 0.2)';
+            } else {
+                header.style.background = 'rgba(8, 8, 10, 0.85)';
+                header.style.borderBottomColor = 'rgba(255, 255, 255, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>
