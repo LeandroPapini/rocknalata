@@ -716,6 +716,51 @@
                 text-align: center;
             }
         }
+    /* Botão Flutuante do WhatsApp */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    z-index: 9999;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.65);
+}
+
+.whatsapp-icon {
+    width: 35px;
+    height: 35px;
+}
+
+/* Ajuste para celular */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+    }
+    .whatsapp-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+    
+    
+    
     </style>
 </head>
 <body>
@@ -956,5 +1001,16 @@
             }
         });
     </script>
+<!-- Botão Flutuante WhatsApp -->
+<a href="https://wa.me/5511985143427?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20camiseta%20Rock%20na%20Lata!" 
+   class="whatsapp-float" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   aria-label="Fale Conosco pelo WhatsApp">
+    <svg viewBox="0 0 32 32" class="whatsapp-icon">
+        <path fill="currentColor" d="M16.002 0.002C7.164 0.002 0 7.166 0 16.002c0 2.822 0.738 5.568 2.14 7.996L0.086 31.916l8.136-2.134c2.344 1.28 4.986 1.956 7.78 1.956 8.838 0 16.002-7.164 16.002-16.002S24.84 0.002 16.002 0.002zm9.516 22.604c-0.398 1.12-1.974 2.05-2.738 2.178-0.732 0.122-1.688 0.174-2.734-0.162-0.672-0.216-1.542-0.518-2.656-1.01-4.674-2.062-7.712-6.8-7.946-7.114-0.234-0.314-1.9-2.532-1.9-4.83 0-2.298 1.202-3.428 1.63-3.896 0.428-0.468 0.932-0.584 1.242-0.584 0.31 0 0.62 0.004 0.89 0.016 0.286 0.014 0.668-0.108 1.044 0.796 0.39 0.938 1.332 3.25 1.45 3.484 0.118 0.234 0.196 0.51 0.04 0.822-0.156 0.312-0.234 0.506-0.468 0.78-0.234 0.274-0.492 0.61-0.702 0.82-0.234 0.234-0.478 0.488-0.206 0.956 0.272 0.468 1.21 1.996 2.596 3.232 1.782 1.588 3.284 2.08 3.752 2.314 0.468 0.234 0.742 0.196 1.018-0.118 0.276-0.314 1.172-1.364 1.484-1.832 0.312-0.468 0.624-0.39 1.044-0.234s2.664 1.256 3.12 1.484c0.456 0.228 0.76 0.34 0.872 0.53 0.112 0.19 0.112 1.106-0.286 2.226z"/>
+    </svg>
+</a>
+
 </body>
 </html>
